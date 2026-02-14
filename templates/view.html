@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>日记详情 · Diaries</title>
+  <!-- 英文字体 Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- 中文字体 霞鹜文楷 -->
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai&display=swap" rel="stylesheet">
+  <!-- 品牌icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23FFB6C1'/%3E%3Cstop offset='100%25' stop-color='%23B4E6D9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='46' fill='url(%23grad)' /%3E%3Cpath d='M34 33 L66 33 L66 67 L34 67 Z' fill='none' stroke='%23FFFFFF' stroke-width='5' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='42' r='6' fill='%23FFFFFF' /%3E%3Cline x1='42' y1='54' x2='58' y2='54' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round'/%3E%3Cline x1='42' y1='62' x2='58' y2='62' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round'/%3E%3Cline x1='42' y1='70' x2='52' y2='70' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    /* ---------- 全局重置 & 泡泡背景 ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      background-image: 
+        radial-gradient(circle at 18% 25%, rgba(220, 219, 219, 0.3) 40px, transparent 40px),
+        radial-gradient(circle at 75% 12%, rgba(220, 219, 219, 0.3) 70px, transparent 70px),
+        radial-gradient(circle at 45% 78%, rgba(220, 219, 219, 0.3) 90px, transparent 90px),
+        radial-gradient(circle at 88% 60%, rgba(220, 219, 219, 0.3) 55px, transparent 55px),
+        radial-gradient(circle at 8% 82%, rgba(220, 219, 219, 0.3) 65px, transparent 65px),
+        radial-gradient(circle at 35% 35%, rgba(220, 219, 219, 0.3) 100px, transparent 100px),
+        radial-gradient(circle at 62% 48%, rgba(220, 219, 219, 0.3) 48px, transparent 48px),
+        radial-gradient(circle at 92% 88%, rgba(220, 219, 219, 0.3) 85px, transparent 85px),
+        radial-gradient(circle at 52% 15%, rgba(220, 219, 219, 0.3) 60px, transparent 60px);
+      background-size: 200% 200%, 180% 180%, 220% 220%, 190% 190%, 210% 210%, 230% 230%, 200% 200%, 240% 240%, 170% 170%;
+      background-position: 0 0;
+      font-family: 'LXGW WenKai', 'Noto Serif SC', 'Georgia', 'Times New Roman', serif;
+      color: #1e2a2f;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0;
+      letter-spacing: 0.2px;
+    }
+
+    .app-wrapper {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ---------- 顶部导航 ---------- */
+    .nav-bar {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      margin: 0 auto;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.6rem;
+      background: linear-gradient(115deg, #ffe8f0, #ffdee8);
+      border: 1.8px solid rgba(255, 182, 193, 0.5);
+      border-radius: 60px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #3b2c32;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+      font-family: 'Montserrat', 'LXGW WenKai', sans-serif;
+      white-space: nowrap;
+    }
+
+    .back-btn:hover {
+      background: linear-gradient(115deg, #ffdae5, #ffccd9);
+      border-color: #faa0b6;
+      box-shadow: 0 16px 24px rgba(250, 160, 182, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .back-btn:active {
+      transform: translateY(2px);
+    }
+
+    /* 日记日期标签（右上角） */
+    .date-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.6rem;
+      background: linear-gradient(115deg, #e1f2ef, #d4ece7);
+      border: 1.8px solid rgba(104, 184, 170, 0.4);
+      border-radius: 60px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #1e403e;
+      backdrop-filter: blur(4px);
+      font-family: 'Montserrat', 'LXGW WenKai', sans-serif;
+      white-space: nowrap;
+    }
+
+    /* ---------- 主要内容 ---------- */
+    .main-content {
+      flex: 1;
+      width: 100%;
+      max-width: 900px;
+      padding: 1rem 2rem 3rem;
+    }
+
+    .diary-detail-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 36px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 36px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .detail-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      font-weight: 600;
+      font-size: 2.2rem;
+      color: #1e3b3b;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .detail-subtitle {
+      font-size: 1.2rem;
+      color: #3d6b67;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      padding-left: 0.5rem;
+      border-left: 4px solid #b4e6d9;
+      padding-left: 1rem;
+    }
+
+    .detail-content {
+      font-size: 1.1rem;
+      color: #2e4045;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      white-space: pre-wrap;
+    }
+
+    /* 图片画廊 */
+    .detail-images {
+      margin-top: 1.5rem;
+    }
+
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .detail-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 20px;
+      background-size: cover;
+      background-position: center;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease;
+    }
+
+    .detail-image:hover {
+      transform: scale(1.02);
+    }
+
+    .no-images-message {
+      color: #95aaa8;
+      font-size: 1rem;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 40px;
+    }
+
+    /* 页脚 */
+    .footer {
+      flex-shrink: 0;
+      width: 100%;
+      text-align: center;
+      padding: 2rem 0.8rem 1.5rem;
+      font-size: 0.95rem;
+      color: #6c7a7e;
+      font-family: 'Montserrat', 'LXGW WenKai', 'Noto Serif SC', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      background: none;
+      border: none;
+      border-radius: 0;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .nav-bar {
+        padding: 1.2rem 1.5rem;
+      }
+      .back-btn, .date-badge {
+        padding: 0.55rem 1.2rem;
+        font-size: 1rem;
+      }
+      .diary-detail-card {
+        padding: 1.8rem;
+      }
+      .detail-title {
+        font-size: 1.8rem;
+      }
+      .images-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-bar {
+        padding: 1rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- 顶部导航：返回按钮 + 日期标签 -->
+    <div class="nav-bar">
+      <a href="/flashback/" class="back-btn">
+        <span style="font-size:1.2rem;">←</span> 返回列表
+      </a>
+      <div class="date-badge">
+        <span>📅</span> {{ diary.display_date }}
+      </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="main-content">
+      <div class="diary-detail-card">
+        <h1 class="detail-title">{{ diary.title }}</h1>
+        {% if diary.subtitle %}
+        <div class="detail-subtitle">{{ diary.subtitle }}</div>
+        {% endif %}
+        <div class="detail-content">{{ diary.content }}</div>
+
+        <!-- 图片区域 -->
+        <div class="detail-images">
+          <h3 style="font-size:1.2rem; color:#2a4a4a; margin-bottom:0.8rem; display:flex; gap:0.4rem;">
+            <span>🖼️</span> 图片 ({{ diary.image_list|length }})
+          </h3>
+          {% if diary.image_list and diary.image_list|length > 0 %}
+          <div class="images-grid">
+            {% for img_path in diary.image_list %}
+            <div class="detail-image" style="background-image: url('{{ url_for('static', filename=img_path) }}');"></div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="no-images-message">📷 这篇日记没有图片</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      © Copyright Johnny Wang
+    </footer>
+  </div>
+</body>
+</html>

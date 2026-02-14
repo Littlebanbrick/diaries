@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>提交成功 · Diaries</title>
+  <!-- 英文字体 Montserrat · 简约现代 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- 中文字体 霞鹜文楷 · 温润清晰（用于按钮） -->
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai&display=swap" rel="stylesheet">
+  <!-- 品牌icon · 粉青渐变日记本标识 -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23FFB6C1'/%3E%3Cstop offset='100%25' stop-color='%23B4E6D9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='46' fill='url(%23grad)' /%3E%3Cpath d='M34 33 L66 33 L66 67 L34 67 Z' fill='none' stroke='%23FFFFFF' stroke-width='5' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='42' r='6' fill='%23FFFFFF' /%3E%3Cline x1='42' y1='54' x2='58' y2='54' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round'/%3E%3Cline x1='42' y1='62' x2='58' y2='62' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round'/%3E%3Cline x1='42' y1='70' x2='52' y2='70' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    /* ---------- 全局重置 & 泡泡背景（完全沿用首页修改后的色调） ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      /* 泡泡纹样：用户指定的灰色调 rgba(220,219,219,0.3)，大小错落，相连重叠 */
+      background-image: 
+        radial-gradient(circle at 18% 25%, rgba(220, 219, 219, 0.3) 40px, transparent 40px),
+        radial-gradient(circle at 75% 12%, rgba(220, 219, 219, 0.3) 70px, transparent 70px),
+        radial-gradient(circle at 45% 78%, rgba(220, 219, 219, 0.3) 90px, transparent 90px),
+        radial-gradient(circle at 88% 60%, rgba(220, 219, 219, 0.3) 55px, transparent 55px),
+        radial-gradient(circle at 8% 82%, rgba(220, 219, 219, 0.3) 65px, transparent 65px),
+        radial-gradient(circle at 35% 35%, rgba(220, 219, 219, 0.3) 100px, transparent 100px),
+        radial-gradient(circle at 62% 48%, rgba(220, 219, 219, 0.3) 48px, transparent 48px),
+        radial-gradient(circle at 92% 88%, rgba(220, 219, 219, 0.3) 85px, transparent 85px),
+        radial-gradient(circle at 52% 15%, rgba(220, 219, 219, 0.3) 60px, transparent 60px);
+      background-size: 200% 200%, 180% 180%, 220% 220%, 190% 190%, 210% 210%, 230% 230%, 200% 200%, 240% 240%, 170% 170%;
+      background-position: 0 0;
+      font-family: 'LXGW WenKai', 'Noto Serif SC', 'Georgia', 'Times New Roman', serif;
+      color: #1e2a2f;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      letter-spacing: 0.2px;
+    }
+
+    /* ---------- 主容器：flex 列，自然置底 ---------- */
+    .app-wrapper {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ---------- 中央内容区：完全居中 ---------- */
+    .main-content {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ---------- 成功卡片 —— 极简，只有标题与按钮 ---------- */
+    .success-card {
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    /* 大标题 · 与首页欢迎标题字体统一：系统无衬线，现代感 */
+    .success-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+      font-weight: 620;
+      font-size: clamp(3rem, 12vw, 4.2rem);
+      letter-spacing: -0.01em;
+      color: #1e3b3b;
+      line-height: 1.2;
+      margin-bottom: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    /* 返回首页按钮 · 青调渐变，与提交动作呼应，风格完全对齐首页/更新页 */
+    .home-btn {
+      display: inline-block;
+      white-space: nowrap;
+      padding: 1rem 3.2rem;
+      min-width: 220px;
+      background: linear-gradient(115deg, #e1f2ef, #d4ece7);
+      border: 1.8px solid rgba(104, 184, 170, 0.4);
+      border-radius: 60px;
+      font-size: 1.3rem;
+      font-weight: 520;
+      color: #1e403e;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+      font-family: 'Montserrat', 'LXGW WenKai', 'Noto Serif SC', sans-serif;
+      letter-spacing: 0.6px;
+      word-break: keep-all;
+      overflow-wrap: normal;
+      border: 1.8px solid rgba(104, 184, 170, 0.4);
+    }
+
+    .home-btn:hover {
+      background: linear-gradient(115deg, #cde9e2, #bde3db);
+      border-color: #68b8aa;
+      box-shadow: 0 20px 28px rgba(104, 184, 170, 0.12);
+      transform: translateY(-3px);
+    }
+
+    .home-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.02);
+    }
+
+    .home-btn:focus-visible {
+      outline: 3px solid #68b8aa;
+      outline-offset: 5px;
+    }
+
+    /* ---------- 页脚：纯灰色字体，无任何装饰，与首页完全一致 ---------- */
+    .footer {
+      flex-shrink: 0;
+      width: 100%;
+      text-align: center;
+      padding: 2rem 0.8rem 1.5rem;
+      font-size: 0.95rem;
+      color: #6c7a7e;
+      font-family: 'Montserrat', 'LXGW WenKai', 'Noto Serif SC', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      background: none;
+      border: none;
+      border-radius: 0;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
+
+    /* ---------- 响应式微调 ---------- */
+    @media (max-width: 500px) {
+      .success-title {
+        font-size: 2.6rem;
+        margin-bottom: 1.8rem;
+      }
+      .home-btn {
+        padding: 0.9rem 2rem;
+        font-size: 1.2rem;
+        min-width: 200px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .success-title {
+        font-size: 2.2rem;
+      }
+      .home-btn {
+        padding: 0.85rem 1.5rem;
+        font-size: 1.1rem;
+        min-width: 180px;
+      }
+    }
+
+    /* emoji 对齐辅助 */
+    .success-title span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- 中央区域：只有成功标题 + 返回首页按钮 -->
+    <div class="main-content">
+      <div class="success-card">
+        <h1 class="success-title">
+          <span>🎉</span> 提交成功！
+        </h1>
+        <!-- 青调按钮，跳转至首页 -->
+        <a href="/" class="home-btn">
+          🏠 返回首页
+        </a>
+      </div>
+    </div>
+
+    <!-- 页脚：纯粹文字，无任何包裹装饰，与首页/更新页一致 -->
+    <footer class="footer">
+      © Copyright Johnny Wang
+    </footer>
+  </div>
+
+  <!-- 
+    设计说明：
+    - 完全继承 Diaries 视觉语言：浅灰底+大尺寸深灰泡泡（rgba(220,219,219,0.3)）。
+    - 标题使用系统无衬线字体，与首页「欢迎来到Diaries」汉字风格统一，粗重且现代。
+    - 按钮采用青调渐变，呼应「提交」动作，悬停抬升，反馈细腻。
+    - 页面仅包含正中的成功标题与返回按钮，无任何冗余元素，完全符合要求。
+    - 页脚保持纯文本、无背景、无圆角，与首页严格一致。
+    - 响应式布局，移动端自动适配。
+  -->
+</body>
+</html>

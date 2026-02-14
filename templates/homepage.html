@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>首页 · Diaries</title>
+  <!-- 简约英文字体: Montserrat – 干净、几何感，Google Fonts 经典之选 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- 霞鹜文楷依旧保留作为中文字体主力，温润清晰（副标题、按钮、页脚） -->
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23FFB6C1'/%3E%3Cstop offset='100%25' stop-color='%23B4E6D9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='46' fill='url(%23grad)' /%3E%3Cpath d='M34 33 L66 33 L66 67 L34 67 Z' fill='none' stroke='%23FFFFFF' stroke-width='5' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='42' r='6' fill='%23FFFFFF' /%3E%3Cline x1='42' y1='54' x2='58' y2='54' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round'/%3E%3Cline x1='42' y1='62' x2='58' y2='62' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round'/%3E%3Cline x1='42' y1='70' x2='52' y2='70' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    /* ---------- 重置 & 纯灰基调 ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      /* 干净浅灰基底，无任何彩色 */
+      background-color: #f5f7fa;
+      /* 泡泡纹样 —— 纯灰色调，大小错落，可重叠，明显但不抢眼 */
+      background-image: 
+        radial-gradient(circle at 15% 30%, rgba(220, 219, 219, 0.3) 30px, transparent 30px),
+        radial-gradient(circle at 72% 18%, rgba(220, 219, 219, 0.3) 85px, transparent 45px),
+        radial-gradient(circle at 50% 70%, rgba(220, 219, 219, 0.3) 60px, transparent 60px),
+        radial-gradient(circle at 85% 55%, rgba(220, 219, 219, 0.3) 35px, transparent 35px),
+        radial-gradient(circle at 10% 85%, rgba(220, 219, 219, 0.3) 50px, transparent 50px),
+        radial-gradient(circle at 40% 15%, rgba(220, 219, 219, 0.3) 110px, transparent 70px),
+        radial-gradient(circle at 92% 75%, rgba(220, 219, 219, 0.3) 42px, transparent 42px),
+        radial-gradient(circle at 25% 60%, rgba(220, 219, 219, 0.3) 55px, transparent 55px),
+        radial-gradient(circle at 68% 40%, rgba(220, 219, 219, 0.3) 120px, transparent 80px);
+      background-size: 100% 100%; /* 让泡泡覆盖整个视口，不重复平铺感 */
+      font-family: 'LXGW WenKai', 'Noto Serif SC', 'Georgia', 'Times New Roman', serif;
+      color: #1e2a2f;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 1.5rem 0;
+      letter-spacing: 0.2px;
+    }
+
+    /* ---------- 主容器：弹性置中，页脚自然下沉 ---------- */
+    .app-main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1 0 auto;
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2rem 0.8rem;
+    }
+
+    /* ---------- 标题区 ---------- */
+    .title-block {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .main-title {
+      /* 汉字部分：系统无衬线，清爽现代 */
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+      /* 英文部分：Montserrat，简约且专业，覆盖Diaries */
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.9rem, 12vw, 4rem);
+      letter-spacing: -0.02em;
+      color: #1e3b3b;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* 副标题保持霞鹜文楷，温润书卷气 */
+    .sub-title {
+      font-family: 'LXGW WenKai', 'Noto Serif SC', 'Georgia', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #3d6b67;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 2rem;
+      border-radius: 50px;
+      display: inline-block;
+      border: 1px solid rgba(120, 120, 120, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      margin-top: 0.6rem;
+    }
+
+    /* ---------- 按钮组：确保两个按钮绝对等宽 ---------- */
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;   /* 让子元素宽度拉伸至相同 */
+      gap: 1.8rem;
+      width: 100%;
+      max-width: 360px;       /* 控制按钮组的最大宽度，使按钮本身宽大但不至于过宽 */
+      margin: 1rem 0 3.5rem;
+    }
+
+    .btn {
+      /* 核心：宽度100% + 固定内边距，两个按钮自然等宽 */
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+      padding: 1rem 1.5rem;   /* 左右内边距缩窄，由父宽度控制整体大小 */
+      border-radius: 60px;
+      font-size: 1.3rem;
+      font-weight: 520;
+      text-align: center;
+      text-decoration: none;
+      letter-spacing: 0.6px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+      border: 1.8px solid transparent;
+      font-family: 'LXGW WenKai', 'Noto Serif SC', 'Georgia', serif;
+      /* 强制不换行 */
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    /* 上传按钮：粉调 */
+    .btn:first-child {
+      background: linear-gradient(115deg, #ffe8f0, #ffdee8);
+      border-color: rgba(255, 182, 193, 0.5);
+      color: #3b2c32;
+    }
+
+    /* 查看按钮：青调 */
+    .btn:last-child {
+      background: linear-gradient(115deg, #e1f2ef, #d4ece7);
+      border-color: rgba(104, 184, 170, 0.4);
+      color: #1e403e;
+    }
+
+    .btn:first-child:hover {
+      background: linear-gradient(115deg, #ffdae5, #ffccd9);
+      border-color: #faa0b6;
+      box-shadow: 0 20px 28px rgba(250, 160, 182, 0.12);
+      transform: translateY(-3px);
+    }
+
+    .btn:last-child:hover {
+      background: linear-gradient(115deg, #cde9e2, #bde3db);
+      border-color: #68b8aa;
+      box-shadow: 0 20px 28px rgba(104, 184, 170, 0.12);
+      transform: translateY(-3px);
+    }
+
+    .btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid #68b8aa;
+      outline-offset: 5px;
+    }
+
+    /* ---------- 页脚：绝对简约，没有任何装饰，纯灰色字体 ---------- */
+    .footer {
+      flex-shrink: 0;
+      width: 100%;
+      text-align: center;
+      padding: 2rem 0.8rem 1.5rem;  /* 仅保留必要的上下内边距，无背景、无边框、无圆角 */
+      font-size: 0.95rem;
+      color: #6c7a7e;              /* 中灰色，低调 */
+      font-family: 'Montserrat', 'LXGW WenKai', 'Noto Serif SC', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      /* 彻底移除所有装饰性属性 */
+      background: none;
+      border: none;
+      border-radius: 0;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
+
+    /* 页脚文字不要任何背景包裹，纯文本 */
+    .footer span {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      color: inherit;
+      font-weight: 400;
+    }
+
+    /* ---------- 响应式微调 ---------- */
+    @media (max-width: 500px) {
+      .button-group {
+        max-width: 300px;
+      }
+      .btn {
+        padding: 0.9rem 1.2rem;
+        font-size: 1.2rem;
+      }
+      .main-title {
+        font-size: 2.6rem;
+      }
+      .sub-title {
+        font-size: 1.2rem;
+        padding: 0.4rem 1.4rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .button-group {
+        max-width: 260px;
+      }
+      .btn {
+        padding: 0.85rem 0.8rem;
+        font-size: 1.1rem;
+      }
+    }
+
+    /* 标题里的emoji辅助对齐 */
+    .main-title span, .sub-title span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-main">
+    <!-- 标题组：英文使用Montserrat，简约清晰；汉字保持系统无衬线，清爽现代 -->
+    <div class="title-block">
+      <h1 class="main-title">
+        <span>📓</span> 欢迎来到 <span style="font-family: 'Montserrat', sans-serif; font-weight: 600;">Diaries</span> <span>✨</span>
+      </h1>
+      <div class="sub-title">
+        记录，就此刻。
+      </div>
+    </div>
+
+    <!-- 双按钮：通过flex拉伸实现绝对等宽，粉青主题保留 -->
+    <div class="button-group">
+      <a href="/update/" class="btn">
+        📤 上传新日记
+      </a>
+      <a href="/flashback/" class="btn">
+        📖 查看往期日记
+      </a>
+    </div>
+  </div>
+
+  <!-- 页脚：彻底去除任何装饰，纯灰色文字，字体使用Montserrat，干净置底 -->
+  <footer class="footer">
+    © Copyright Johnny Wang
+  </footer>
+
+  <!-- 
+    设计回溯：
+    ✓ 背景为浅灰+大尺寸深灰泡泡（纯灰调，重叠自然）
+    ✓ 标题英文更改为Montserrat，简约现代，去除了衬线的花哨感
+    ✓ 页脚移除所有圆角矩形、背景、边框，仅灰色文字 + Google字体
+    ✓ 两个按钮通过父级 stretch + width:100% 实现绝对等宽
+    ✓ 所有中文区域（除标题汉字）保留霞鹜文楷，人文与简洁并存
+  -->
+</body>
+</html>
